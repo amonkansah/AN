@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Amo Nkansah | Portfolio</title>
+  
+  <!-- Google Fonts: Poppins -->
+  <link href="https://fonts.googleapis.com/css2?family=Poppins&display=swap" rel="stylesheet">
+
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'Poppins', sans-serif;
+      background-color: #fff;
+    }
+
+    header {
+      background-color: #f9f9f9;
+      padding: 20px 50px;
+      box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    }
+
+    nav {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+    }
+
+    .logo {
+      font-size: 24px;
+      font-weight: bold;
+      color: red;
+    }
+
+    .nav-links {
+      list-style: none;
+      display: flex;
+      gap: 30px;
+      flex-wrap: wrap;
+    }
+
+    .nav-links li a {
+      text-decoration: none;
+      color: red;
+      font-weight: 500;
+      transition: color 0.3s ease;
+    }
+
+    .nav-links li a:hover {
+      color: darkred;
+    }
+
+    /* Responsive */
+    @media (max-width: 768px) {
+      nav {
+        flex-direction: column;
+        align-items: flex-start;
+      }
+
+      .nav-links {
+        flex-direction: column;
+        gap: 15px;
+        margin-top: 10px;
+      }
+    }
+
+    main {
+      padding: 100px 20px;
+      text-align: center;
+    }
+
+    main h2 {
+      color: red;
+    }
+  </style>
+</head>
+<body>
+
+  <header>
+    <nav>
+      <h1 class="logo">Amo Nkansah</h1>
+      <ul class="nav-links">
+        <li><a href="#">Home</a></li>
+        <li><a href="#">About Me</a></li>
+        <li><a href="#">Projects</a></li>
+        <li><a href="#">Certifications</a></li>
+        <li><a href="#">Contact</a></li>
+      </ul>
+    </nav>
+  </header>
+
+  <main>
+    <h2>Welcome to My Portfolio</h2>
+    <p>Click on any menu item above to explore more sections.</p>
+  </main>
+
+</body>
+</html>
