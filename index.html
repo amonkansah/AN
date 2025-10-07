@@ -11,15 +11,30 @@
       box-sizing: border-box;
     }
 
+    html {
+      scroll-behavior: smooth;
+    }
+
     body {
       font-family: 'Poppins', sans-serif;
       background-color: #d9d9d9;
+      overflow-x: hidden;
     }
 
     header {
       background-color: #D9D9D9;
       padding: 20px 50px;
       box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+      transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+      position: sticky;
+      top: 0;
+      z-index: 100;
+    }
+
+    header.scrolled {
+      background-color: rgba(217, 217, 217, 0.95);
+      backdrop-filter: blur(10px);
+      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.15);
     }
 
     nav {
@@ -160,19 +175,59 @@
       padding: 80px 20px;
       max-width: 85%;
       margin: 0 auto;
+      opacity: 0;
+      transform: translateY(50px);
+      transition: all 0.8s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+
+    .about-section.animate {
+      opacity: 1;
+      transform: translateY(0);
     }
 
     .about-section h2 {
       color: red;
       font-size: 32px;
-      margin-bottom: 20px;
+      margin-bottom: 30px;
     }
 
-    .about-section p {
+    .about-card {
+      background-color: white;
+      border-radius: 15px;
+      box-shadow: 0 8px 25px rgba(0, 0, 0, 0.1);
+      padding: 0;
+      margin-bottom: 40px;
+      overflow: hidden;
+      transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+      opacity: 0;
+      transform: translateY(30px) scale(0.95);
+    }
+
+    .about-card.animate {
+      opacity: 1;
+      transform: translateY(0) scale(1);
+    }
+
+    .about-card:hover {
+      transform: translateY(-8px) scale(1.02);
+      box-shadow: 0 20px 40px rgba(0, 0, 0, 0.15);
+      border-radius: 20px;
+    }
+
+    .about-card-content {
+      padding: 40px;
+    }
+
+    .about-card-content p {
       font-size: 18px;
-      line-height: 1.53;
-      margin-bottom: 5px;
+      line-height: 1.6;
+      margin-bottom: 20px;
       text-align: justify;
+      color: #333;
+    }
+
+    .about-card-content p:last-child {
+      margin-bottom: 0;
     }
 
     .about-section h3 {
@@ -182,12 +237,23 @@
   margin-top: 40px;
 }
 
-.experience-section h3 {
-  color: red;
-  font-size: 26px;
-  font-weight: 450;
-  margin-bottom: 30px;
-}
+    .experience-section {
+      opacity: 0;
+      transform: translateY(30px);
+      transition: all 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+
+    .experience-section.animate {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    .experience-section h3 {
+      color: red;
+      font-size: 26px;
+      font-weight: 450;
+      margin-bottom: 30px;
+    }
 
 .experience-grid {
   display: grid;
@@ -196,41 +262,77 @@
   max-width: 100%;
   justify-items: center;
   align-items: start;
+  position: relative;
 }
 
 .experience-item {
   background-color: #fff;
-  border-radius: 10px;
+  border-radius: 15px;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.08);
-  padding: 20px;
+  padding: 0;
   width: 100%;
   max-width: 320px;
   text-align: center;
-  transition: transform 0.3s ease;
+  transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1), filter 0.4s ease;
+  opacity: 0;
+  transform: translateY(30px) scale(0.9);
+  overflow: hidden;
+  position: relative;
+  z-index: 0;
 }
 
-.experience-item:hover {
-  transform: translateY(-5px);
+.experience-item.animate {
+  opacity: 1;
+  transform: translateY(0) scale(1);
+}
+
+/* Blur other items when one is hovered */
+.experience-grid:hover .experience-item {
+  filter: blur(3px);
+  opacity: 0.5;
+  transform: translateY(0) scale(0.95);
+}
+
+/* Remove blur from the hovered item */
+.experience-grid .experience-item:hover {
+  filter: blur(0);
+  opacity: 1;
+  transform: translateY(-8px) scale(1.15);
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.25);
+  border-radius: 20px;
+  z-index: 10;
 }
 
 .experience-item img {
   width: 100%;
-  height: 180px;
+  height: 220px;
   object-fit: cover;
-  border-radius: 8px;
-  margin-bottom: 15px;
+  border-radius: 15px 15px 0 0;
+  margin-bottom: 0;
+}
+
+.experience-item .content-overlay {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  background: linear-gradient(transparent, rgba(0, 0, 0, 0.8));
+  padding: 20px 15px 15px;
+  border-radius: 0 0 15px 15px;
 }
 
 .experience-item h4 {
-  font-size: 18px;
-  color: #222;
-  margin-bottom: 10px;
+  font-size: 14px;
+  color: #fff;
+  margin-bottom: 8px;
+  font-weight: 600;
 }
 
 .experience-item p {
-  font-size: 14px;
-  color: #555;
-  line-height: 1.4;
+  font-size: 11px;
+  color: rgba(255, 255, 255, 0.9);
+  line-height: 1.3;
+  margin: 0;
 }
 
 
@@ -243,54 +345,119 @@
 
 .skills-subsection {
   margin-top: 40px;
+  opacity: 0;
+  transform: translateY(30px);
+  transition: all 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.skills-subsection.animate {
+  opacity: 1;
+  transform: translateY(0);
 }
 
 .skills-subsection h3 {
   font-size: 1.8em;
-  margin-bottom: 20px;
+  margin-bottom: 0;
   color: red;
 }
 
 .skills-container {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
-  gap: 8px;
-  justify-content: center;
+  grid-template-columns: repeat(3, 1fr);
+  grid-template-rows: repeat(2, 1fr);
+  gap: 25px;
+  justify-content: start;
+  position: relative;
+  width: 100%;
+  max-width: 100%;
+  margin: 20px 0 0 20px;
 }
 
 .skill-card {
-  background: #f7f7f7;
+  background: #fff;
   border-radius: 20px;
-  padding: 20px;
+  padding: 0;
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
-  transition: transform 0.3s ease;
+  transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1), filter 0.4s ease;
   text-align: center;
+  opacity: 0;
+  transform: translateY(30px) scale(0.9);
+  overflow: hidden;
+  position: relative;
+  z-index: 0;
+  width: 320px;
+  height: 230px;
+  min-height: 150px;
 }
 
-.skill-card:hover {
-  transform: translateY(-5px);
+.skill-card.animate {
+  opacity: 1;
+  transform: translateY(0) scale(1);
+}
+
+/* Blur other items when one is hovered */
+.skills-container:hover .skill-card {
+  filter: blur(3px);
+  opacity: 0.5;
+  transform: translateY(0) scale(0.95);
+}
+
+/* Remove blur from the hovered item */
+.skills-container .skill-card:hover {
+  filter: blur(0);
+  opacity: 1;
+  transform: translateY(-8px) scale(1.15);
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.25);
+  border-radius: 25px;
+  z-index: 10;
 }
 
 .skill-card img {
-  width: 270px;
-  height: 200px;
-  padding: 20px;
-  transform: translateY(-10px);
-  transform: translateX(-15px);
+  width: 100%;
+  height: 100%;
+  min-height: 200px;
+  object-fit: cover;
+  border-radius: 20px 20px 0 0;
+  margin: 0;
+  padding: 0;
+  transform: none;
+}
+
+.skill-card .content-overlay {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  background: linear-gradient(transparent, rgba(0, 0, 0, 0.8));
+  padding: 20px 15px 15px;
+  border-radius: 0 0 20px 20px;
 }
 
 .skill-card h4 {
-  font-size: 1.2em;
-  margin-bottom: 10px;
-  color: #1a1a1a;
+  font-size: 14px;
+  margin-bottom: 8px;
+  color: #fff;
+  font-weight: 600;
 }
 
 .skill-card p {
-  font-size: 0.95em;
-  color: #555;
-  line-height: 1.5;
+  font-size: 11px;
+  color: rgba(255, 255, 255, 0.9);
+  line-height: 1.3;
+  margin: 0;
 }
 
+
+   .cert-section {
+     opacity: 0;
+     transform: translateY(30px);
+     transition: all 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+   }
+
+   .cert-section.animate {
+     opacity: 1;
+     transform: translateY(0);
+   }
 
    .cert-grid {
   display: grid;
@@ -303,28 +470,30 @@
 /* Certification Item */
 .cert-item {
   text-align: center;
-  transition: transform 0.4s ease, filter 0.4s ease;
+  transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1), filter 0.4s ease;
   z-index: 0;
+  opacity: 0;
+  transform: translateY(20px) scale(0.95);
 }
 
-/* Enlarge the hovered item */
-.cert-item:hover {
-  transform: scale(100);
-  z-index: 10;
+.cert-item.animate {
+  opacity: 1;
+  transform: translateY(0) scale(1);
 }
 
 /* Blur other items when one is hovered */
 .cert-grid:hover .cert-item {
   filter: blur(3px);
   opacity: 0.5;
-  transform: scale(1);
+  transform: translateY(0) scale(0.95);
 }
 
 /* Remove blur from the hovered item */
 .cert-grid .cert-item:hover {
   filter: blur(0);
   opacity: 1;
-  transform: scale(1.25);
+  transform: translateY(-8px) scale(1.25);
+  z-index: 10;
 }
 
 
@@ -345,6 +514,14 @@
 
     .about-interests-subsection {
   margin-top: 60px;
+  opacity: 0;
+  transform: translateY(30px);
+  transition: all 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.about-interests-subsection.animate {
+  opacity: 1;
+  transform: translateY(0);
 }
 
 .about-interests-subsection h3 {
@@ -358,42 +535,76 @@
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
   gap: 25px;
+  position: relative;
 }
 
 .about-interest-card {
-  background: #eef6f8;
+  background: #fff;
   border-radius: 18px;
-  padding: 20px;
+  padding: 0;
   box-shadow: 0 6px 12px rgba(0, 0, 0, 0.07);
   text-align: center;
-  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1), filter 0.4s ease;
+  opacity: 0;
+  transform: translateY(30px) scale(0.9);
+  overflow: hidden;
+  position: relative;
+  z-index: 0;
 }
 
-.about-interest-card:hover {
-  transform: translateY(-5px);
-  box-shadow: 0 8px 18px rgba(0, 0, 0, 0.1);
+.about-interest-card.animate {
+  opacity: 1;
+  transform: translateY(0) scale(1);
 }
 
-.about-interest-card h4 {
-  font-size: 1.2em;
-  margin-bottom: 10px;
-  color: #1a1a1a;
+/* Blur other items when one is hovered */
+.about-interests-container:hover .about-interest-card {
+  filter: blur(3px);
+  opacity: 0.5;
+  transform: translateY(0) scale(0.95);
 }
 
-.about-interest-card p {
-  font-size: 0.95em;
-  color: #444;
-  line-height: 1.5;
-  margin: 10px 0;
+/* Remove blur from the hovered item */
+.about-interests-container .about-interest-card:hover {
+  filter: blur(0);
+  opacity: 1;
+  transform: translateY(-8px) scale(1.15);
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.25);
+  border-radius: 22px;
+  z-index: 10;
 }
 
 .about-interest-card img {
   width: 100%;
-  height: 200px;
+  height: 220px;
   object-fit: cover;
-  margin-top: 15px;
-  border-radius: 12px;
+  border-radius: 18px 18px 0 0;
+  margin: 0;
   display: block;
+}
+
+.about-interest-card .content-overlay {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  background: linear-gradient(transparent, rgba(0, 0, 0, 0.8));
+  padding: 20px 15px 15px;
+  border-radius: 0 0 18px 18px;
+}
+
+.about-interest-card h4 {
+  font-size: 14px;
+  margin-bottom: 8px;
+  color: #fff;
+  font-weight: 600;
+}
+
+.about-interest-card p {
+  font-size: 11px;
+  color: rgba(255, 255, 255, 0.9);
+  line-height: 1.3;
+  margin: 0;
 }
 
 .about-funfact {
@@ -416,6 +627,14 @@
   max-width: 1000px;
   line-height: 1.6;
   color: #000; /* Main text stays black */
+  opacity: 0;
+  transform: translateY(20px);
+  transition: all 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.about-funfact.animate {
+  opacity: 1;
+  transform: translateY(0);
 }
 
 .about-funfact .funfact-label {
@@ -430,6 +649,14 @@
   padding: 80px 20px;
   max-width: 85%;
   margin: 0 auto;
+  opacity: 0;
+  transform: translateY(50px);
+  transition: all 0.8s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.projects-section.animate {
+  opacity: 1;
+  transform: translateY(0);
 }
 
 .projects-section h2 {
@@ -444,6 +671,33 @@
   padding: 30px;
   box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
   margin-bottom: 40px;
+  transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1), filter 0.4s ease;
+  opacity: 0;
+  transform: translateY(30px) scale(0.95);
+  position: relative;
+  z-index: 0;
+}
+
+.project-card.animate {
+  opacity: 1;
+  transform: translateY(0) scale(1);
+}
+
+/* Blur other project cards when one is hovered */
+.projects-section:hover .project-card {
+  filter: blur(3px);
+  opacity: 0.5;
+  transform: translateY(0) scale(0.95);
+}
+
+/* Remove blur from the hovered project card */
+.projects-section .project-card:hover {
+  filter: blur(0);
+  opacity: 1;
+  transform: translateY(-8px) scale(1.05);
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.25);
+  border-radius: 15px;
+  z-index: 10;
 }
 
 .project-card h3 {
@@ -500,6 +754,14 @@
   max-width: 85%;
   margin: 0 auto;
   border-top: 2px solid #ccc;
+  opacity: 0;
+  transform: translateY(50px);
+  transition: all 0.8s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.contact-section.animate {
+  opacity: 1;
+  transform: translateY(0);
 }
 
 .contact-section h2 {
@@ -524,6 +786,14 @@
   text-decoration: none;
 }
 
+
+@media (max-width: 1024px) {
+  .skills-container {
+    grid-template-columns: repeat(2, 1fr);
+    grid-template-rows: repeat(3, 1fr);
+    max-width: 100%;
+  }
+}
 
 @media (max-width: 768px) {
   nav {
@@ -580,7 +850,10 @@
   }
 
   .skills-container {
-    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    grid-template-columns: 1fr;
+    grid-template-rows: repeat(6, 1fr);
+    max-width: 100%;
+    gap: 15px;
   }
 
   .project-gallery {
@@ -610,7 +883,7 @@
   <header>
     <nav>
       <ul class="nav-links">
-        <li><a href="#">Home</a></li>
+        <li><a href="#home">Home</a></li>
         <li><a href="#about">About Me</a></li>
         <li><a href="#projects">Projects</a></li>
         <li><a href="#contact">Contact</a></li>
@@ -618,7 +891,7 @@
     </nav>
   </header>
 
-  <main class="home-content">
+  <main id="home" class="home-content">
     <div class="home-row">
       <div class="typewriter-container">
         <div class="typewriter-line line-1"></div>
@@ -635,44 +908,60 @@
 
   <section id="about" class="about-section">
     <h2>About Me</h2>
-    <p>Hi, I’m Amo Nkansah, a Petroleum Engineering graduate currently working as an Operations and HSE Trainee at Ensol Energy Gh Ltd, an oilfield chemical solutions company.</p>
-    <p>With a strong interest in both engineering and safety, I’m building a career focused on operational excellence and real world impact. My background in petroleum engineering, combined with hands-on experience in chemical operations and HSE, haS given me a deep appreciation for the challenges of the oil and gas industry.</p>
-    <p>I enjoy solving technical problems whether it's modeling reservoir behavior with CMG or building smart tools with Code or the Power Platform .</p>
-    <p>What drives me is the opportunity to make a tangible impact whether is upholding safety protocols, contributing my quota to field-work or simply making someone’s job easier. Every skill I learn and every project I take on is a step toward that goal.</p>
-    <p>Beyond Engineering and HSE, I’m deeply passionate about History, Innovation, Geopolitical and Socio-Economic issues but above all I am committed to making a significant impact in lives of people. When I’m not working, you’ll likely find me immersed in a good book or enjoying a football match.</p>
+    <div class="about-card">
+      <div class="about-card-content">
+        <p>Hi, I'm Amo Nkansah, a Petroleum Engineering graduate currently working as an Operations and HSE Trainee at Ensol Energy Gh Ltd, an oilfield chemical solutions company.</p>
+        <p>With a strong interest in both engineering and safety, I'm building a career focused on operational excellence and real world impact. My background in petroleum engineering, combined with hands-on experience in chemical operations and HSE, haS given me a deep appreciation for the challenges of the oil and gas industry.</p>
+        <p>I enjoy solving technical problems whether it's modeling reservoir behavior with CMG or building smart tools with Code or the Power Platform .</p>
+        <p>What drives me is the opportunity to make a tangible impact whether is upholding safety protocols, contributing my quota to field-work or simply making someone's job easier. Every skill I learn and every project I take on is a step toward that goal.</p>
+        <p>Beyond Engineering and HSE, I'm deeply passionate about History, Innovation, Geopolitical and Socio-Economic issues but above all I am committed to making a significant impact in lives of people. When I'm not working, you'll likely find me immersed in a good book or enjoying a football match.</p>
+      </div>
+    </div>
     
     <div class="experience-section">
   <h3 id="experiences">Experiences</h3>
   <div class="experience-grid">
     <div class="experience-item">
       <img src="projects/CDO.jpeg" alt="Chemical Decanting Ops">
-      <h4>Chemical Decanting Ops</h4>
-      <p>Chemicals are transferred into standardized cargo units using pumps, hoses, and compressors.</p>
+      <div class="content-overlay">
+        <h4>Chemical Decanting Ops</h4>
+        <p>Chemicals are transferred into standardized cargo units using pumps, hoses, and compressors.</p>
+      </div>
     </div>
     <div class="experience-item">
       <img src="projects/B.jpeg" alt="Blending Operations">
-      <h4>Blending Operations</h4>
-      <p>Chemical solutions are prepared based on client requirements or required concerntrations.</p>
+      <div class="content-overlay">
+        <h4>Blending Operations</h4>
+        <p>Chemical solutions are prepared based on client requirements or required concerntrations.</p>
+      </div>
     </div>
     <div class="experience-item">
       <img src="projects/CF.jpg" alt="Chemical Filtration">
-      <h4>Chemical Filtration</h4>
-      <p>Chemicals are filtered to reduce particle count or SAE to acceptable levels.</p>
+      <div class="content-overlay">
+        <h4>Chemical Filtration</h4>
+        <p>Chemicals are filtered to reduce particle count or SAE to acceptable levels.</p>
+      </div>
     </div>
     <div class="experience-item">
       <img src="projects/BO.jpg" alt="Bunkering Operations">
-      <h4>Bunkering Operations</h4>
-      <p>Chemicals are transfered into offshore supply vessels for delivery to FPSOs.</p>
+      <div class="content-overlay">
+        <h4>Bunkering Operations</h4>
+        <p>Chemicals are transfered into offshore supply vessels for delivery to FPSOs.</p>
+      </div>
     </div>
     <div class="experience-item">
       <img src="projects/ESC.jpg" alt="Emergency Systems Checks">
-      <h4>Emergency Systems Checks</h4>
-      <p>Carried out routine inspections on emergency showers, eye wash stations and alarms to confirm functionality.  .</p>
+      <div class="content-overlay">
+        <h4>Emergency Systems Checks</h4>
+        <p>Carried out routine inspections on emergency showers, eye wash stations and alarms to confirm functionality.</p>
+      </div>
     </div>
     <div class="experience-item">
       <img src="projects/TI.jpg" alt="Truck Inspection Checks">
-      <h4>Truck Inspection Checks</h4>
-      <p>Performed detailed checks on dispatch Trucks.Reported anomalies to ensure operational readiness and compliance.</p>
+      <div class="content-overlay">
+        <h4>Truck Inspection Checks</h4>
+        <p>Performed detailed checks on dispatch Trucks.Reported anomalies to ensure operational readiness and compliance.</p>
+      </div>
     </div>
   </div>
 </div>
@@ -683,26 +972,50 @@
 
       <div class="skill-card">
         <img src="projects/RM.jpg" alt="Reservoir Modelling">
-        <h4>Reservoir 3D Modelling</h4>
-        <p> Capable of  building and interpreting 3D reservoir models for subsurface analysis.</p>
+        <div class="content-overlay">
+          <h4>Reservoir 3D Modelling</h4>
+          <p>Capable of building and interpreting 3D reservoir models for subsurface analysis.</p>
+        </div>
       </div>
 
       <div class="skill-card">
         <img src="projects/DARS.png" alt="R Software">
-        <h4>Data Analysis with R-Software</h4>
-        <p>Skilled in using R for statistical analysis, visualization and predictive modeling.</p>
+        <div class="content-overlay">
+          <h4>Data Analysis with R-Software</h4>
+          <p>Skilled in using R for statistical analysis, visualization and predictive modeling.</p>
+        </div>
       </div>
 
       <div class="skill-card">
-        <img src="projects/PALS.png" alt="Power Platform">
-        <h4>Power Automation & Low Code Solutions</h4>
-        <p> Competent in building automation flows and apps with Microsoft Power Platform.</p>
+        <img src="projects/PALS.jpg" alt="Power Platform">
+        <div class="content-overlay">
+          <h4>Power Automation & Low Code Solutions</h4>
+          <p>Competent in building automation flows and apps with Microsoft Power Platform.</p>
+        </div>
       </div>
 
       <div class="skill-card">
         <img src="projects/BFWD.jpeg" alt="Web Development">
-        <h4>Basic Frontend  Dev</h4>
-        <p>Capable of creating functional websites using HTML, CSS, JS and basic backend logic.</p>
+        <div class="content-overlay">
+          <h4>Basic Frontend Dev</h4>
+          <p>Capable of creating functional websites using HTML, CSS, JS and basic backend logic.</p>
+        </div>
+      </div>
+
+      <div class="skill-card">
+        <img src="projects/JFPD.jpg" alt="PowerBI">
+        <div class="content-overlay">
+          <h4>Data Analysis & Visualization with PowerBI</h4>
+          <p>Skilled in transforming raw data into interactive dashboards and meaningful insights using PowerBI's advanced analytics tools.</p>
+        </div>
+      </div>
+
+      <div class="skill-card">
+        <img src="projects/ES.jpg" alt="Engineering Schematics">
+        <div class="content-overlay">
+          <h4>Engineering Schematics with Microsoft Visio</h4>
+          <p>Proficient in reading, interpreting, and creating technical drawings and engineering diagrams for complex systems.</p>
+        </div>
       </div>
     </div>
   </div>
@@ -766,10 +1079,11 @@
   <h3>Personality Scoop: Interests</h3>
   <div class="about-interests-container">
     <div class="about-interest-card">
-      <h4>Reading</h4>
-      <p>Books are like doors: you open them, and you go through into another world.</p>
-      <p>~ Jeanette Winterson.</p>
       <img src="projects/RD.jpg" alt="Reading">
+      <div class="content-overlay">
+        <h4>Reading</h4>
+        <p>Books are like doors: you open them, and you go through into another world. ~ Jeanette Winterson.</p>
+      </div>
     </div>
   
     <div class="about-interest-card">
@@ -11684,15 +11998,19 @@
 
 
 
-      <h4>Football</h4>
-      <p>Whether watching or playing, football energizes me and teaches me strategy, teamwork and fun.</p>
       <img src="projects/FB.jpeg" alt="Football">
+      <div class="content-overlay">
+        <h4>Football</h4>
+        <p>Whether watching or playing, football energizes me and teaches me strategy, teamwork and fun.</p>
+      </div>
     </div>
 
     <div class="about-interest-card">
-      <h4>Youth Empowerment through STEM</h4>
-      <p>STEM is a language of wonder, a way to light stars in young minds and build bridges to futures unseen.</p>
       <img src="projects/YMS.jpeg" alt="STEM">
+      <div class="content-overlay">
+        <h4>Youth Empowerment through STEM</h4>
+        <p>STEM is a language of wonder, a way to light stars in young minds and build bridges to futures unseen.</p>
+      </div>
     </div>
 
   </div>
@@ -11858,7 +12176,92 @@
       }
     }
 
-    typeNextChar();
+    // Scroll animations and morph transitions
+    function handleScrollAnimations() {
+      const header = document.querySelector('header');
+      const scrollY = window.scrollY;
+      
+      // Header morph effect
+      if (scrollY > 50) {
+        header.classList.add('scrolled');
+      } else {
+        header.classList.remove('scrolled');
+      }
+
+      // Intersection Observer for scroll-triggered animations
+      const observerOptions = {
+        threshold: 0.1,
+        rootMargin: '0px 0px -50px 0px'
+      };
+
+      const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+          if (entry.isIntersecting) {
+            entry.target.classList.add('animate');
+            
+            // Stagger animation for child elements
+            const children = entry.target.querySelectorAll('.experience-item, .project-card, .skill-card, .about-interest-card, .cert-item');
+            children.forEach((child, index) => {
+              setTimeout(() => {
+                child.classList.add('animate');
+              }, index * 100);
+            });
+          }
+        });
+      }, observerOptions);
+
+      // Observe all sections and subsections
+      const sections = document.querySelectorAll('.about-section, .projects-section, .contact-section');
+      const subsections = document.querySelectorAll('.experience-section, .skills-subsection, .cert-section, .about-interests-subsection');
+      const cards = document.querySelectorAll('.about-card, .experience-item, .project-card, .skill-card, .about-interest-card, .cert-item');
+      const specialElements = document.querySelectorAll('.about-funfact');
+      
+      sections.forEach(section => observer.observe(section));
+      subsections.forEach(subsection => observer.observe(subsection));
+      cards.forEach(card => observer.observe(card));
+      specialElements.forEach(element => observer.observe(element));
+    }
+
+    // Smooth scroll for navigation links
+    function initSmoothScroll() {
+      const navLinks = document.querySelectorAll('.nav-links a[href^="#"]');
+      
+      navLinks.forEach(link => {
+        link.addEventListener('click', (e) => {
+          e.preventDefault();
+          const targetId = link.getAttribute('href');
+          const targetSection = document.querySelector(targetId);
+          
+          if (targetSection) {
+            targetSection.scrollIntoView({
+              behavior: 'smooth',
+              block: 'start'
+            });
+          }
+        });
+      });
+    }
+
+    // Initialize everything when DOM is loaded
+    document.addEventListener('DOMContentLoaded', () => {
+      typeNextChar();
+      handleScrollAnimations();
+      initSmoothScroll();
+    });
+
+    // Handle scroll events
+    let ticking = false;
+    function updateOnScroll() {
+      if (!ticking) {
+        requestAnimationFrame(() => {
+          handleScrollAnimations();
+          ticking = false;
+        });
+        ticking = true;
+      }
+    }
+
+    window.addEventListener('scroll', updateOnScroll);
   </script>
 </body>
 </html>
