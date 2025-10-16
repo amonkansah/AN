@@ -877,6 +877,27 @@
 }
 
 
+  @media (max-width: 768px) {
+    /* Mobile fallback: ensure sections/cards are visible even if animations don't trigger */
+    .about-section,
+    .projects-section,
+    .contact-section,
+    .experience-section,
+    .skills-subsection,
+    .cert-section,
+    .about-interests-subsection,
+    .about-card,
+    .experience-item,
+    .project-card,
+    .skill-card,
+    .about-interest-card,
+    .cert-item,
+    .about-funfact {
+      opacity: 1 !important;
+      transform: none !important;
+    }
+  }
+
   </style>
 </head>
 <body>
